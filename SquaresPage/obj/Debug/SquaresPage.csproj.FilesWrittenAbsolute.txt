@@ -1,5 +1,0 @@
-/home/dcseh/melo/devbridge/SquaresPage/SquaresPage/obj/Debug/.NETFramework,Version=v4.5.AssemblyAttribute.cs
-/home/dcseh/melo/devbridge/SquaresPage/SquaresPage/bin/SquaresPage.dll.mdb
-/home/dcseh/melo/devbridge/SquaresPage/SquaresPage/bin/SquaresPage.dll
-/home/dcseh/melo/devbridge/SquaresPage/SquaresPage/obj/Debug/SquaresPage.dll
-/home/dcseh/melo/devbridge/SquaresPage/SquaresPage/obj/Debug/SquaresPage.dll.mdb
