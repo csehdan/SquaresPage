@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace SquaresPage
@@ -68,8 +68,6 @@ namespace SquaresPage
 			if ((PQ[0] - PQ[a]).Abs() != (PQ[0] - PQ[b]).Abs())
 				return false;
 
-			// elvileg elég
-
 			return true;
 		}
 	}
@@ -91,7 +89,7 @@ namespace SquaresPage
 				QS.Add(new Qdr(pts[que[0]], pts[que[1]], pts[que[2]], pts[que[3]]));
 				return;
 			}
-			for(int i=offset; i<=n-k; ++i)// kiprobalini, hogy mivan ha i++!!!
+			for(int i=offset; i<=n-k; ++i)
 			{
 				cmb.Push(srcIdx[i]);
 				Comb(i + 1, k - 1);
@@ -112,4 +110,3 @@ namespace SquaresPage
 		}
 	}
 }
-
