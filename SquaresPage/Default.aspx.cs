@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.IO;
 using System.Web;
 using System.Web.UI;
@@ -7,7 +7,6 @@ using System.Windows.Forms;
 
 namespace SquaresPage
 {
-	
 	public partial class Default : System.Web.UI.Page
 	{
 		static List<Point> pts = new List<Point>();
@@ -226,11 +225,10 @@ namespace SquaresPage
 					}
 					listOfSquares.Text += qts.QS[i].GetPointsText()+"<br>";
 				}
-					
+
 			}
 			string msg = "Number of squares: " + countSq;
 			Response.Write ("<script>alert('" +msg+ "');</script>");
 		}
 	}
 }
-

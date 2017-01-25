@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" Inherits="SquaresPage.Default" %>
+﻿﻿<%@ Page Language="C#" Inherits="SquaresPage.Default" %>
 <!DOCTYPE html>
 <html>
 <head runat="server">
@@ -26,4 +26,3 @@
 	</form>
 </body>
 </html>
-

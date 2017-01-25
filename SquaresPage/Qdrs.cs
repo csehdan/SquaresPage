@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace SquaresPage
@@ -43,7 +43,7 @@ namespace SquaresPage
 			{
 				if(i!=diag0)
 				{
-					
+
 					if ((PQ[i] - PQ[0]) * (PQ[i] - PQ[diag0]) != 0)
 						return false;
 					if (a < 0)
@@ -62,6 +62,10 @@ namespace SquaresPage
 			if (PQ[a] - PQ[0] != PQ[diag0] - PQ[b])
 				return false;
 			if (PQ[0] - PQ[b] != PQ[a] - PQ[diag0])
+				return false;
+
+			// this is not very nice, but works.
+			if ((PQ[0] - PQ[a]).Abs() != (PQ[0] - PQ[b]).Abs())
 				return false;
 
 			// elvileg elég

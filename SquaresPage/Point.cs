@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 
 namespace SquaresPage
 {
@@ -27,10 +27,10 @@ namespace SquaresPage
 				return X.ToString() + "\t" + Y.ToString();
 		}
 
-//		public Point DistVect(Point p)
-//		{
-//			return new Point(p.X - X, p.Y - Y);
-//		}
+		//		public Point DistVect(Point p)
+		//		{
+		//			return new Point(p.X - X, p.Y - Y);
+		//		}
 
 		public static Point operator-(Point a, Point b)
 		{
@@ -73,4 +73,3 @@ namespace SquaresPage
 		}
 	}
 }
-
