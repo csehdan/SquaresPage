@@ -41,6 +41,8 @@ namespace SquaresPage {
 		
 		protected System.Web.UI.WebControls.DropDownList dropSortBy;
 		
+		protected System.Web.UI.WebControls.DropDownList dropAscDesc;
+		
 		protected System.Web.UI.WebControls.Button btnLeft;
 		
 		protected System.Web.UI.WebControls.Label lblNofN;

@@ -4,6 +4,7 @@ using System.Web;
 using System.Web.UI;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace SquaresPage
 {
@@ -58,7 +59,6 @@ namespace SquaresPage
 
 		public void ApplyCurrentPage()
 		{
-			//RegenPointPages();
 			lblNofN.Text="Page "+(currPage+1).ToString()+" of "+llp.Count.ToString();
 
 			listOfPoints.Text = "Currently the following points are added:<br>";
@@ -325,11 +325,10 @@ namespace SquaresPage
 			Response.Write ("<script>alert('" +msg+ "');</script>");
 		}
 
-		public void dropPagesChanged(object sender, EventArgs args)
+		public void DropPagesChanged(object sender, EventArgs args)
 		{
 			ptsPerPage = IsInt(dropPages.SelectedValue).Value;
 			currPage = 0;
-			RegenPointPages();
 			Refresh();
 		}
 
@@ -349,6 +348,25 @@ namespace SquaresPage
 			btnRight.Enabled = currPage < llp.Count - 1;
 			ApplyCurrentPage();
 			btnLeft.Enabled = true;
+		}
+
+		public void ChangeSort(object sender, EventArgs args)
+		{
+			if (dropAscDesc.SelectedValue == "d")
+			{
+				if (dropSortBy.SelectedValue == "x")
+					pts = pts.OrderByDescending(p => p.X).ToList();
+				else
+					pts = pts.OrderByDescending(p => p.Y).ToList();
+			}
+			else
+			{
+				if (dropSortBy.SelectedValue == "x")
+					pts = pts.OrderBy(p => p.X).ToList();
+				else
+					pts = pts.OrderBy(p => p.Y).ToList();
+			}
+			Refresh();
 		}
 	}
 }

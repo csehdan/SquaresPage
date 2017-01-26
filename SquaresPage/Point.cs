@@ -1,11 +1,11 @@
-﻿﻿using System;
+﻿using System;
 
 namespace SquaresPage
 {
 	public class Point
 	{
-		int X;
-		int Y;
+		public int X;
+		public int Y;
 
 		public Point(int x, int y)
 		{

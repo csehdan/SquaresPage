@@ -4,7 +4,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectTypeGuids>{349C5851-65DF-11DA-9384-00065B846F21};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <ProjectGuid>{3A0BE9FD-03EF-4666-B96A-75C8DE77C951}</ProjectGuid>
+    <ProjectGuid>{3FA6DF95-EAA7-48FA-843E-1E21607B55D4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>SquaresPage</RootNamespace>
     <AssemblyName>SquaresPage</AssemblyName>
@@ -50,8 +50,8 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Point.cs" />
     <Compile Include="Qdrs.cs" />
+    <Compile Include="Point.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

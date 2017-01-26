@@ -26,7 +26,7 @@
 		<br><br>
 
 		<asp:Label id="lblPPP" runat="server" Text="Points per page: " Enabled=false/>
-		<asp:DropDownList id="dropPages" runat="server" AutoPostBack=true OnSelectedIndexChanged="dropPagesChanged" >
+		<asp:DropDownList id="dropPages" runat="server" AutoPostBack=true OnSelectedIndexChanged="DropPagesChanged" >
 			<asp:ListItem Text="5" Value="5" />
 			<asp:ListItem Text="10" Value="10" />
 			<asp:ListItem Text="20" Value="20" />
@@ -34,9 +34,13 @@
 		</asp:DropDownList>
 		<br>
 		Sort by: 
-		<asp:DropDownList id="dropSortBy" runat="server" AutoPostBack=true OnSelectedIndexChanged="dropPagesChanged" >
+		<asp:DropDownList id="dropSortBy" runat="server" AutoPostBack=true OnSelectedIndexChanged="ChangeSort" >
 			<asp:ListItem Text="X" Value="x" />
 			<asp:ListItem Text="Y" Value="y" />
+		</asp:DropDownList>
+		<asp:DropDownList id="dropAscDesc" runat="server" AutoPostBack=true OnSelectedIndexChanged="ChangeSort" >
+			<asp:ListItem Text="Ascending" Value="a" />
+			<asp:ListItem Text="Descending" Value="d" />
 		</asp:DropDownList>
 		<br>
 		<asp:Button id="btnLeft" runat="server" Text="&lt;" OnClick="btnLeftClicked" Enabled=false />
