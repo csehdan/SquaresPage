@@ -21,13 +21,17 @@ namespace SquaresPage {
 		
 		protected System.Web.UI.WebControls.Button btnAddPt;
 		
-		protected System.Web.UI.WebControls.Label countLabel;
-		
 		protected System.Web.UI.WebControls.Button btnClearList;
+		
+		protected System.Web.UI.HtmlControls.HtmlInputText toBeRemoved;
+		
+		protected System.Web.UI.WebControls.Button btnRemovePts;
 		
 		protected System.Web.UI.WebControls.Button btnImportList;
 		
 		protected System.Web.UI.WebControls.Button btnExportList;
+		
+		protected System.Web.UI.WebControls.Button btnDeleteList;
 		
 		protected System.Web.UI.WebControls.Button btnCountSq;
 		

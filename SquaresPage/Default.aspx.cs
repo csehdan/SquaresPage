@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.IO;
 using System.Web;
 using System.Web.UI;
@@ -10,6 +10,7 @@ namespace SquaresPage
 	public partial class Default : System.Web.UI.Page
 	{
 		static List<Point> pts = new List<Point>();
+		const string fileFilter = "Point list file (*.pntlst)|*.pntlst";
 
 		// auxiliary methods
 
@@ -39,7 +40,6 @@ namespace SquaresPage
 		void Refresh()
 		{
 			EliminateRepeats();
-			countLabel.Text = pts.Count.ToString();
 
 			if (pts.Count > 0)
 				btnExportList.Enabled = true;
@@ -56,6 +56,7 @@ namespace SquaresPage
 				string pntLstStr = "Currently the following points are added:<br>";
 				for (int i = 0; i < pts.Count; i++)
 				{
+					pntLstStr += (i + 1).ToString() + ". ";
 					pntLstStr += pts[i].CoordsToString(true);
 					pntLstStr += "<br>";
 				}
@@ -71,7 +72,7 @@ namespace SquaresPage
 		{
 			System.IO.Stream fileList = null;
 			OpenFileDialog importListDialog = new OpenFileDialog();
-			importListDialog.Filter = "All files (*.*)|*.*" ;
+			importListDialog.Filter = fileFilter;
 			importListDialog.RestoreDirectory = true ;
 
 			if(importListDialog.ShowDialog() == DialogResult.OK)
@@ -169,6 +170,34 @@ namespace SquaresPage
 			Refresh();
 		}
 
+		public void btnRemovePtsClicked(object sender, EventArgs args)
+		{
+			string[] idxsStr = toBeRemoved.Value.Split(new char[] {' ','\t', ','}, StringSplitOptions.RemoveEmptyEntries);
+			List<int> idxs = new List<int>();
+			for (int i = 0; i < idxsStr.Length; i++)
+			{
+				int? num=IsInt(idxsStr[i]);
+				if (num == null)
+				{
+					Response.Write("<script>alert('Invalid list!');</script>");
+					toBeRemoved.Value = "";
+					return;
+				}
+				else
+					idxs.Add(num.Value);
+			}
+			idxs.Sort();
+			for (int i = idxs.Count-1; i >= 0; i--)
+			{
+				if (idxs[i] > pts.Count || idxs[i] < 1)
+					Response.Write("<script>alert('There is no point " + idxs[i].ToString() + ", it will not be deleted.');</script>");
+				else
+					pts.RemoveAt(idxs[i] - 1);
+			}
+			toBeRemoved.Value = "";
+			Refresh();
+		}
+
 		public void btnImportListClicked(object sender, EventArgs args)
 		{
 			DialogResult result = MessageBox.Show("Do you want the existing points to be removed? " +
@@ -179,13 +208,9 @@ namespace SquaresPage
 				MessageBoxDefaultButton.Button1);
 
 			if (result == DialogResult.Yes)
-			{
 				importFileList(true);
-			}
 			else if (result == DialogResult.No)
-			{
 				importFileList(false);
-			}
 			Refresh();
 			return;
 		}
@@ -194,6 +219,7 @@ namespace SquaresPage
 		{
 			SaveFileDialog sfd = new SaveFileDialog();
 			sfd.Title = "Export points to file";
+			sfd.Filter = fileFilter;
 			DialogResult dlgRes = sfd.ShowDialog();
 			if (dlgRes == DialogResult.OK && sfd.FileName != "")
 			{
@@ -202,11 +228,33 @@ namespace SquaresPage
 				sw.BaseStream.Seek(0, SeekOrigin.End);
 
 				for (int i = 0; i < pts.Count; i++)
-				{
 					sw.Write(pts[i].CoordsToString()+"\n");
-				}
 
 				sw.Close();
+			}
+		}
+
+		public void btnDeleteListClicked(object sender, EventArgs args)
+		{
+			FileDialog fd = new OpenFileDialog();
+			fd.Filter = fileFilter;
+			fd.Title = "Delete";
+			DialogResult dlgRes = fd.ShowDialog();
+			if (dlgRes == DialogResult.OK)
+			{
+				string fullPath = Path.Combine(fd.InitialDirectory, fd.FileName);
+				if (File.Exists(@fullPath))
+				{
+					try
+					{
+						File.Delete(@fullPath);
+					}
+					catch (IOException e)
+					{
+						Console.WriteLine(e.Message);
+						return;
+					}
+				}
 			}
 		}
 
@@ -223,7 +271,7 @@ namespace SquaresPage
 					{
 						listOfSquares.Text = "Squares are the following:<br>";
 					}
-					listOfSquares.Text += qts.QS[i].GetPointsText()+"<br>";
+					listOfSquares.Text += countSq.ToString() + ". " + qts.QS[i].GetPointsText()+"<br>";
 				}
 
 			}
