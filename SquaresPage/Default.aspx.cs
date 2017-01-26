@@ -10,7 +10,10 @@ namespace SquaresPage
 	public partial class Default : System.Web.UI.Page
 	{
 		static List<Point> pts = new List<Point>();
+		static List<List<Point>> llp = new List<List<Point>>();
 		const string fileFilter = "Point list file (*.pntlst)|*.pntlst";
+		static int currPage = 0;
+		static int ptsPerPage = 5;
 
 		// auxiliary methods
 
@@ -37,35 +40,79 @@ namespace SquaresPage
 			}
 		}
 
+		public void RegenPointPages()
+		{
+			ptsPerPage = IsInt(dropPages.SelectedValue).Value;
+			llp = new List<List<Point>>();
+			int listIdx = -1;
+			for (int i = 0; i < pts.Count; i++)
+			{
+				if (i % ptsPerPage == 0)
+				{
+					llp.Add(new List<Point>());
+					listIdx++;
+				}
+				llp[listIdx].Add(pts[i]);
+			}
+		}
+
+		public void ApplyCurrentPage()
+		{
+			//RegenPointPages();
+			lblNofN.Text="Page "+(currPage+1).ToString()+" of "+llp.Count.ToString();
+
+			listOfPoints.Text = "Currently the following points are added:<br>";
+
+			string pntLstStr = "";
+			for (int i = 0; i < llp[currPage].Count; i++)
+			{
+				pntLstStr += (currPage*ptsPerPage + i + 1).ToString() + ". ";
+				pntLstStr += llp[currPage][i].CoordsToString(true);
+				pntLstStr += "<br>";
+			}
+			listOfPoints.Text += pntLstStr;
+		}
+
+		// called if number of points change
 		void Refresh()
 		{
 			EliminateRepeats();
+			RegenPointPages();
+			bool ptsPresent = pts.Count > 0;
 
-			if (pts.Count > 0)
-				btnExportList.Enabled = true;
-			else
-				btnExportList.Enabled = false;
+			btnExportList.Enabled = ptsPresent;
+			dropPages.Enabled = ptsPresent;
 
-			if (pts.Count > 3)
-				btnCountSq.Enabled = true;
-			else
-				btnCountSq.Enabled = false;
+			btnCountSq.Enabled = pts.Count > 3;
 
-			if (pts.Count > 0)
+			if (ptsPresent)
 			{
-				string pntLstStr = "Currently the following points are added:<br>";
-				for (int i = 0; i < pts.Count; i++)
-				{
-					pntLstStr += (i + 1).ToString() + ". ";
-					pntLstStr += pts[i].CoordsToString(true);
-					pntLstStr += "<br>";
-				}
-				listOfPoints.Text = pntLstStr;
+				ApplyCurrentPage();
+
+//				string pntLstStr = "Currently the following points are added:<br>";
+//				for (int i = 0; i < pts.Count; i++)
+//				{
+//					pntLstStr += (i + 1).ToString() + ". ";
+//					pntLstStr += pts[i].CoordsToString(true);
+//					pntLstStr += "<br>";
+//				}
+//				listOfPoints.Text = pntLstStr;
 			}
 			else
 				listOfPoints.Text = "";
 
 			listOfSquares.Text = "";
+
+			if (pts.Count > ptsPerPage)
+			{
+				btnRight.Enabled = currPage < llp.Count-1;
+				btnLeft.Enabled = currPage > 0;
+			}
+			else
+			{
+				btnRight.Enabled = false;
+				btnLeft.Enabled = false;
+			}
 		}
 
 		public void importFileList(bool del)
@@ -273,10 +320,35 @@ namespace SquaresPage
 					}
 					listOfSquares.Text += countSq.ToString() + ". " + qts.QS[i].GetPointsText()+"<br>";
 				}
-
 			}
 			string msg = "Number of squares: " + countSq;
 			Response.Write ("<script>alert('" +msg+ "');</script>");
+		}
+
+		public void dropPagesChanged(object sender, EventArgs args)
+		{
+			ptsPerPage = IsInt(dropPages.SelectedValue).Value;
+			currPage = 0;
+			RegenPointPages();
+			Refresh();
+		}
+
+		public void btnLeftClicked(object sender, EventArgs args)
+		{
+			if (currPage > 0)
+				currPage--;
+			btnLeft.Enabled = currPage > 0;
+			ApplyCurrentPage();
+			btnRight.Enabled = true;
+		}
+
+		public void btnRightClicked(object sender, EventArgs args)
+		{
+			if (currPage < llp.Count - 1)
+				currPage++;
+			btnRight.Enabled = currPage < llp.Count - 1;
+			ApplyCurrentPage();
+			btnLeft.Enabled = true;
 		}
 	}
 }

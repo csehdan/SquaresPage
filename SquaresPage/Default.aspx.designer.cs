@@ -35,6 +35,18 @@ namespace SquaresPage {
 		
 		protected System.Web.UI.WebControls.Button btnCountSq;
 		
+		protected System.Web.UI.WebControls.Label lblPPP;
+		
+		protected System.Web.UI.WebControls.DropDownList dropPages;
+		
+		protected System.Web.UI.WebControls.DropDownList dropSortBy;
+		
+		protected System.Web.UI.WebControls.Button btnLeft;
+		
+		protected System.Web.UI.WebControls.Label lblNofN;
+		
+		protected System.Web.UI.WebControls.Button btnRight;
+		
 		protected System.Web.UI.WebControls.Label listOfPoints;
 		
 		protected System.Web.UI.WebControls.Label listOfSquares;
