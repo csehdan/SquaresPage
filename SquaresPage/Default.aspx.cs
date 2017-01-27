@@ -32,13 +32,9 @@ namespace SquaresPage
 			if (pts.Count < 2)
 				return;
 			for (int i = 1; i < pts.Count; i++)
-			{
 				for (int j = 0; j < i; j++)
-				{
 					if (pts[i] == pts[j])
 						pts.RemoveAt(i);
-				}
-			}
 		}
 
 		public void RegenPointPages()
@@ -75,8 +71,10 @@ namespace SquaresPage
 
 		void Refresh()
 		{
+			// these two may not necessarily called every time, but it doesn't hurt too much if they are
 			EliminateRepeats();
 			RegenPointPages();
+
 			bool ptsPresent = pts.Count > 0;
 
 			btnExportList.Enabled = ptsPresent;
@@ -88,6 +86,8 @@ namespace SquaresPage
 			{
 				ApplyCurrentPage();
 
+
+				// before paginating
 //				string pntLstStr = "Currently the following points are added:<br>";
 //				for (int i = 0; i < pts.Count; i++)
 //				{
@@ -137,7 +137,7 @@ namespace SquaresPage
 							if(line == null) break;
 							string[] twoNum = line.Split(new char[] {' ','\t'}, StringSplitOptions.RemoveEmptyEntries);
 
-							string errortext="<script>alert('Incorrect data format in file. No action was carried out.');</script>";
+							string errortext="<script>alert('Incorrect data format in file. No change was made.');</script>";
 
 							if(twoNum.Length!=2)
 							{
@@ -157,7 +157,6 @@ namespace SquaresPage
 
 						if(del)
 						{
-							// ezt csinaljuk csak akkor, ha minden tuti, sikerult beolvasni a fajlt
 							pts.Clear();
 						}
 
@@ -247,11 +246,11 @@ namespace SquaresPage
 		public void btnImportListClicked(object sender, EventArgs args)
 		{
 			DialogResult result = MessageBox.Show("Do you want the existing points to be removed? " +
-				"If not, points from the file will be added to the already existing points.",
+				"If not, the points from the file will be added to the already existing set of points.",
 				"Delete existing points?",
 				MessageBoxButtons.YesNoCancel,
 				MessageBoxIcon.Question,
-				MessageBoxDefaultButton.Button1);
+				MessageBoxDefaultButton.Button2);
 
 			if (result == DialogResult.Yes)
 				importFileList(true);
@@ -321,7 +320,7 @@ namespace SquaresPage
 				}
 			}
 			string msg = "Number of squares: " + countSq;
-			Response.Write ("<script>alert('" +msg+ "');</script>");
+			Response.Write("<script>alert('" + msg + "');</script>");
 		}
 
 		public void DropPagesChanged(object sender, EventArgs args)
