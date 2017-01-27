@@ -73,7 +73,6 @@ namespace SquaresPage
 			listOfPoints.Text += pntLstStr;
 		}
 
-		// called if number of points change
 		void Refresh()
 		{
 			EliminateRepeats();

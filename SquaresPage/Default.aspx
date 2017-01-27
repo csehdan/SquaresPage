@@ -45,7 +45,7 @@
 		<br>
 		<asp:Button id="btnLeft" runat="server" Text="&lt;" OnClick="btnLeftClicked" Enabled=false />
 		<asp:Label id="lblNofN" runat="server" Text="" Enabled=false/>
-		<asp:Button id="btnRight" runat="server" Text=">" OnClick="btnRightClicked" Enabled=false /><br>
+		<asp:Button id="btnRight" runat="server" Text="&gt;" OnClick="btnRightClicked" Enabled=false /><br>
 		<asp:Label id="listOfPoints" runat="server" Text="Currently the following points are added:"/>
 		<br><br>
 		<asp:Label id="listOfSquares" runat="server" Text=""/>
