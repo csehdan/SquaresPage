@@ -79,24 +79,11 @@ namespace SquaresPage
 
 			btnExportList.Enabled = ptsPresent;
 			dropPages.Enabled = ptsPresent;
-
+			btnRemovePts.Enabled = ptsPresent;
 			btnCountSq.Enabled = pts.Count > 3;
 
 			if (ptsPresent)
-			{
 				ApplyCurrentPage();
-
-
-				// before paginating
-//				string pntLstStr = "Currently the following points are added:<br>";
-//				for (int i = 0; i < pts.Count; i++)
-//				{
-//					pntLstStr += (i + 1).ToString() + ". ";
-//					pntLstStr += pts[i].CoordsToString(true);
-//					pntLstStr += "<br>";
-//				}
-//				listOfPoints.Text = pntLstStr;
-			}
 			else
 				listOfPoints.Text = "";
 
@@ -119,7 +106,8 @@ namespace SquaresPage
 			System.IO.Stream fileList = null;
 			OpenFileDialog importListDialog = new OpenFileDialog();
 			importListDialog.Filter = fileFilter;
-			importListDialog.RestoreDirectory = true ;
+			importListDialog.RestoreDirectory = true;
+			importListDialog.Title = "Import point list";
 
 			if(importListDialog.ShowDialog() == DialogResult.OK)
 			{
@@ -263,7 +251,7 @@ namespace SquaresPage
 		public void btnExportListClicked(object sender, EventArgs args)
 		{
 			SaveFileDialog sfd = new SaveFileDialog();
-			sfd.Title = "Export points to file";
+			sfd.Title = "Save points to file";
 			sfd.Filter = fileFilter;
 			DialogResult dlgRes = sfd.ShowDialog();
 			if (dlgRes == DialogResult.OK && sfd.FileName != "")
@@ -281,9 +269,10 @@ namespace SquaresPage
 
 		public void btnDeleteListClicked(object sender, EventArgs args)
 		{
+			// I use OpenFileDialog because I didn't find quickly anything with better functionality, there is that ugly that 'Open' button though
 			FileDialog fd = new OpenFileDialog();
 			fd.Filter = fileFilter;
-			fd.Title = "Delete";
+			fd.Title = "Delete point list";
 			DialogResult dlgRes = fd.ShowDialog();
 			if (dlgRes == DialogResult.OK)
 			{
@@ -322,6 +311,8 @@ namespace SquaresPage
 			string msg = "Number of squares: " + countSq;
 			Response.Write("<script>alert('" + msg + "');</script>");
 		}
+
+		// paginating and sorting controls
 
 		public void DropPagesChanged(object sender, EventArgs args)
 		{

@@ -15,7 +15,7 @@
 		<asp:Button id="btnClearList" runat="server" Text="Clear list" OnClick="btnClearListClicked" /><br>
 		Remove points (enter the indices of the points to be deleted separated by white space and/or comma): 
 		<input	id="toBeRemoved" runat="server" type="text" size="20" /><br>
-		<asp:Button id="btnRemovePts" runat="server" Text="Remove!" OnClick="btnRemovePtsClicked" /><br>
+		<asp:Button id="btnRemovePts" runat="server" Text="Remove!" OnClick="btnRemovePtsClicked" Enabled=false /><br>
 		<br>
 
 		<asp:Button id="btnImportList" runat="server" Text="Import a list of points" OnClick="btnImportListClicked" /><br>

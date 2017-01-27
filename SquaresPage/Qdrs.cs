@@ -99,6 +99,7 @@ namespace SquaresPage
 
 		public Qdrs(List<Point> points)
 		{
+			// generating all the possible combinations at once
 			QS=new List<Qdr>();
 			pts = points;
 			cmb = new Stack<int>();
